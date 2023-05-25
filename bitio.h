@@ -8,7 +8,7 @@
 
 #include <stdio.h>
 #include "testin"
-#include "testput"
+#include "testout"
 
 typedef struct {
 	FILE* fp;
