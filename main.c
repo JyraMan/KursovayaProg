@@ -30,7 +30,6 @@ void PrintDictionary(void) {
 		printf("%4d->", n);
 		while (0 < count--) printf("%c", (char)(d_stack[count]));
 		printf("\n");
-	
 	}
 }
 
