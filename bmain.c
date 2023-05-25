@@ -7,24 +7,24 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "bitio.h"
-BITFILE* OpenBitFileInput(char* testin) {
+BITFILE* OpenBitFileInput(char* filename) {
 	BITFILE* bf;
 	bf = (BITFILE*)malloc(sizeof(BITFILE));
 	if (NULL == bf) return NULL;
-	if (NULL == testin)	bf->fp = stdin;
-	else bf->fp = fopen(testin, "rb");
+	if (NULL == filename)	bf->fp = stdin;
+	else bf->fp = fopen(filename, "rb");
 	if (NULL == bf->fp) return NULL;
 	bf->mask = 0x80;
 	bf->rack = 0;
 	return bf;
 }
 
-BITFILE* OpenBitFileOutput(char* testout) {
+BITFILE* OpenBitFileOutput(char* filename) {
 	BITFILE* bf;
 	bf = (BITFILE*)malloc(sizeof(BITFILE));
 	if (NULL == bf) return NULL;
-	if (NULL == testout)	bf->fp = stdout;
-	else bf->fp = fopen(testout, "wb");
+	if (NULL == filename)	bf->fp = stdout;
+	else bf->fp = fopen(filename, "wb");
 	if (NULL == bf->fp) return NULL;
 	bf->mask = 0x80;
 	bf->rack = 0;
