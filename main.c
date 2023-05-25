@@ -12,7 +12,6 @@ struct {
 	int suffix;// суффикс относится к P, родитель относится к C
 	int parent, firstchild, nextsibling; // Последние две переменные используются для выходных символов один за другим
 } dictionary[MAX_CODE + 1];
-
 int next_code;// указывает на самое большое кодовое слово в словаре Следующего кода, например, самый большой код в словаре - 255, точка следующего_кода до 256
 int d_stack[MAX_CODE]; // кодовое слово соответствует строке, которая в основном используется для вывода символов в строке в порядке, которая расположена в перевернутом порядке
 
@@ -98,7 +97,7 @@ void AddToDictionary(int character, int string_code) {
 	next_code++;
 }
 
-void LZWEncode(FILE* fp, Bitfile* bf) {
+void LZWEncode(FILE* fp, BITFILE* bf) {
 	int character;
 	int string_code;
 	int index;
@@ -128,7 +127,7 @@ void LZWEncode(FILE* fp, Bitfile* bf) {
 }
 
 
-void LZWDecode(Bitfile* bf, FILE* fp) {
+void LZWDecode(BITFILE* bf, FILE* fp) {
 	int character;
 	int new_code, last_code;
 	int phrase_length;
@@ -165,7 +164,7 @@ void LZWDecode(Bitfile* bf, FILE* fp) {
 
 int main(int argc, char** argv) {
 	FILE* fp;
-	Bitfile* bf;
+	BITFILE* bf;
 
 	if (4 > argc) {
 		fprintf(stdout, "usage: \n%s <o> <ifile> <ofile>\n", argv[0]);
