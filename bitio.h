@@ -14,14 +14,15 @@ typedef struct {
 	FILE* fp;
 	unsigned char mask;
 	int rack;
-}BITFILE;
+}Bitfile;
 
-BITFILE* OpenBitFileInput(char* testin);
-BITFILE* OpenBitFileOutput(char* testout);
-void CloseBitFileInput(BITFILE* bf);
-void CloseBitFileOutput(BITFILE* bf);
-int BitInput(BITFILE* bf);
-unsigned long BitsInput(BITFILE* bf, int count);
-void BitOutput(BITFILE* bf, int bit);
-void BitsOutput(BITFILE* bf, unsigned long code, int count);
+
+Bitfile* OpenBitFileInput(char* testin);
+Bitfile* OpenBitFileOutput(char* testout);
+void CloseBitFileInput(Bitfile* bf);
+void CloseBitFileOutput(Bitfile* bf);
+int BitInput(Bitfile* bf);
+unsigned long BitsInput(Bitfile* bf, int count);
+void BitOutput(Bitfile* bf, int bit);
+void BitsOutput(Bitfile* bf, unsigned long code, int count);
 #endif	// __BITIO__

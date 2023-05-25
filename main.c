@@ -97,7 +97,7 @@ void AddToDictionary(int character, int string_code) {
 	next_code++;
 }
 
-void LZWEncode(FILE* fp, BITFILE* bf) {
+void LZWEncode(FILE* fp, Bitfile* bf) {
 	int character;
 	int string_code;
 	int index;
@@ -127,7 +127,7 @@ void LZWEncode(FILE* fp, BITFILE* bf) {
 }
 
 
-void LZWDecode(BITFILE* bf, FILE* fp) {
+void LZWDecode(Bitfile* bf, FILE* fp) {
 	int character;
 	int new_code, last_code;
 	int phrase_length;
@@ -164,7 +164,7 @@ void LZWDecode(BITFILE* bf, FILE* fp) {
 
 int main(int argc, char** argv) {
 	FILE* fp;
-	BITFILE* bf;
+	Bitfile* bf;
 
 	if (4 > argc) {
 		fprintf(stdout, "usage: \n%s <o> <ifile> <ofile>\n", argv[0]);

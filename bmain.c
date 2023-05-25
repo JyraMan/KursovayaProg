@@ -7,9 +7,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "bitio.h"
-BITFILE* OpenBitFileInput(char* testin) {
-	BITFILE* bf;
-	bf = (BITFILE*)malloc(sizeof(BITFILE));
+Bitfile* OpenBitFileInput(char* testin) {
+	Bitfile* bf;
+	bf = (Bitfile*)malloc(sizeof(Bitfile));
 	if (NULL == bf) return NULL;
 	if (NULL == testin)	bf->fp = stdin;
 	else bf->fp = fopen(testin, "rb");
@@ -19,9 +19,9 @@ BITFILE* OpenBitFileInput(char* testin) {
 	return bf;
 }
 
-BITFILE* OpenBitFileOutput(char* testout) {
-	BITFILE* bf;
-	bf = (BITFILE*)malloc(sizeof(BITFILE));
+Bitfile* OpenBitFileOutput(char* testout) {
+	Bitfile* bf;
+	bf = (Bitfile*)malloc(sizeof(Bitfile));
 	if (NULL == bf) return NULL;
 	if (NULL == testout)	bf->fp = stdout;
 	else bf->fp = fopen(testout, "wb");
@@ -31,19 +31,19 @@ BITFILE* OpenBitFileOutput(char* testout) {
 	return bf;
 }
 
-void CloseBitFileInput(BITFILE* bf) {
+void CloseBitFileInput(Bitfile* bf) {
 	fclose(bf->fp);
 	free(bf);
 }
 
-void CloseBitFileOutput(BITFILE* bf) {
+void CloseBitFileOutput(Bitfile* bf) {
 	// Output the remaining bits
 	if (0x80 != bf->mask) fputc(bf->rack, bf->fp);
 	fclose(bf->fp);
 	free(bf);
 }
 
-int BitInput(BITFILE* bf) {
+int BitInput(Bitfile* bf) {
 	int value;
 
 	if (0x80 == bf->mask) {
@@ -59,7 +59,7 @@ int BitInput(BITFILE* bf) {
 	return((0 == value) ? 0 : 1);
 }
 
-unsigned long BitsInput(BITFILE* bf, int count) {
+unsigned long BitsInput(Bitfile* bf, int count) {
 	unsigned long mask;
 	unsigned long value;
 	mask = 1L << (count - 1);
@@ -72,7 +72,7 @@ unsigned long BitsInput(BITFILE* bf, int count) {
 	return value;
 }
 
-void BitOutput(BITFILE* bf, int bit) {
+void BitOutput(Bitfile* bf, int bit) {
 	if (0 != bit) bf->rack |= bf->mask;
 	bf->mask >>= 1;
 	if (0 == bf->mask) {	// eight bits in rack
@@ -82,7 +82,7 @@ void BitOutput(BITFILE* bf, int bit) {
 	}
 }
 
-void BitsOutput(BITFILE* bf, unsigned long code, int count) {
+void BitsOutput(Bitfile* bf, unsigned long code, int count) {
 	unsigned long mask;
 
 	mask = 1L << (count - 1);
@@ -93,7 +93,7 @@ void BitsOutput(BITFILE* bf, unsigned long code, int count) {
 }
 #if 0
 int main(int argc, char** argv) {
-	BITFILE* bfi = NULL, * bfo = NULL;
+	Bitfile* bfi = NULL, * bfo = NULL;
 	int bit;
 	int count = 0;
 
