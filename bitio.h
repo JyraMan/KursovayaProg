@@ -7,8 +7,8 @@
 #define __BITIO__
 
 #include <stdio.h>
-#include testin.txt
-#include testput.txt
+#include "testin"
+#include "testput"
 
 typedef struct {
 	FILE* fp;
