@@ -21,7 +21,7 @@ BITFILE* OpenBitFileInput(char* testin) {
 
 BITFILE* OpenBitFileOutput(char* testout) {
 	BITFILE* bf;
-	bf = (BITFILE)malloc(sizeof(BITFILE));
+	bf = (BITFILE*)malloc(sizeof(BITFILE));
 	if (NULL == bf) return NULL;
 	if (NULL == testout)	bf->fp = stdout;
 	else bf->fp = fopen(testout, "wb");
