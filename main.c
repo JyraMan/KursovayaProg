@@ -5,6 +5,8 @@
  */
 #include <stdlib.h>
 #include <stdio.h>
+#include <ctype.h>
+#include <limits.h>
 #include "bitio.h"
 #define MAX_CODE 65535
 
