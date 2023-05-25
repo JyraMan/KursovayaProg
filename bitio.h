@@ -14,7 +14,7 @@ typedef struct {
 	FILE* fp;
 	unsigned char mask;
 	int rack;
-}BITFILE;
+} BITFILE;
 
 BITFILE* OpenBitFileInput(char* testin);
 BITFILE* OpenBitFileOutput(char* testout);
