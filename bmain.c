@@ -91,15 +91,6 @@ void BitsOutput(Bitfile* bf, unsigned long code, int count) {
 		mask >>= 1;
 	}
 }
-int main()
-{
-	typedef struct {
-	FILE* fp;
-	unsigned char mask;
-	int rack;
-} Bitfile ;
-return 0;
-}
 #if 0
 int main(int argc, char** argv) {
 	Bitfile* bfi = NULL, * bfo = NULL;
