@@ -7,6 +7,8 @@
 #define __BITIO__
 
 #include <stdio.h>
+#include testin.txt
+#include testput.txt
 
 typedef struct {
 	FILE* fp;
@@ -14,8 +16,8 @@ typedef struct {
 	int rack;
 }BITFILE;
 
-BITFILE* OpenBitFileInput(char* filename);
-BITFILE* OpenBitFileOutput(char* filename);
+BITFILE* OpenBitFileInput(char* testin);
+BITFILE* OpenBitFileOutput(char* testout);
 void CloseBitFileInput(BITFILE* bf);
 void CloseBitFileOutput(BITFILE* bf);
 int BitInput(BITFILE* bf);
