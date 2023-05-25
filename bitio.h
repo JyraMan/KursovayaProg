@@ -1,3 +1,4 @@
+#pragma once
 /*
  * Declaration for bitwise IO
  *
