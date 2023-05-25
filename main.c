@@ -127,7 +127,7 @@ void LZWEncode(FILE* fp, BITFILE* bf) {
 }
 
 
-void LZWDecode(BITFILE* bf, FILE* fp) {
+void LZWDecode(BITFILE bf, FILE* fp) {
 	int character;
 	int new_code, last_code;
 	int phrase_length;
@@ -164,7 +164,7 @@ void LZWDecode(BITFILE* bf, FILE* fp) {
 
 int main(int argc, char** argv) {
 	FILE* fp;
-	BITFILE* bf;
+	BITFILE bf;
 
 	if (4 > argc) {
 		fprintf(stdout, "usage: \n%s <o> <ifile> <ofile>\n", argv[0]);
