@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS= -Wall -o
+CFLAGS= -Wall -o -I
 LDFLAGS=
 SOURCES=main.c bmain.c bitio.h
 OBJECTS=$(SOURCES:.c=.c)
