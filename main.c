@@ -1,9 +1,3 @@
-
-/*
- * Definition for LZW coding
- *
- * vim: ts=4 sw=4 cindent nowrap
- */
 #include <stdlib.h>
 #include <stdio.h>
 #include "bitio.h"
@@ -49,7 +43,7 @@ int DecodeString(int start, int code) {
 	return count;
 }
 
-// Первоначальная таблица химического кода - код ASCII.
+// Первоначальная таблица - код ASCII.
 void InitDictionary(void) {
 	int i;
 
@@ -62,11 +56,7 @@ void InitDictionary(void) {
 	dictionary[255].nextsibling = -1;
 	next_code = 256;
 }
-/*
- * Input: string represented by string_code in dictionary,
- * Output: the index of character+string in the dictionary
- * 		index = -1 if not found
- */
+
 int InDictionary(int character, int string_code) {
 	int sibling;
 	if (0 > string_code) return character;
@@ -86,13 +76,13 @@ void AddToDictionary(int character, int string_code) {
 	dictionary[next_code].nextsibling = -1;
 	dictionary[next_code].firstchild = -1;
 	firstsibling = dictionary[string_code].firstchild;
-	if (-1 < firstsibling) {	// the parent has child
+	if (-1 < firstsibling) {	
 		nextsibling = firstsibling;
 		while (-1 < dictionary[nextsibling].nextsibling)
 			nextsibling = dictionary[nextsibling].nextsibling;
 		dictionary[nextsibling].nextsibling = next_code;
 	}
-	else {// no child before, modify it to be the first
+	else {
 		dictionary[string_code].firstchild = next_code;
 	}
 	next_code++;
@@ -109,16 +99,15 @@ void LZWEncode(FILE* fp, BITFILE* bf) {
 	fseek(fp, 0, SEEK_SET);
 	BitsOutput(bf, file_length, 4 * 8);
 	InitDictionary();// Словарь инициализации
-	string_code = -1;// P
+	string_code = -1;//P
 	while (EOF != (character = fgetc(fp))) {
-		index = InDictionary(character, string_code); // Найти кодирование P+C в словаре. Если вы найдете его, верните код в индекс, иначе верните -1 в индекс
+		index = InDictionary(character, string_code); // Найти кодирование P+C в словаре. Если найдем его, вернем код в индекс, иначе вернем -1 в индекс
 		if (0 <= index) {	// string_code относится к P, символ относится к C, P+C в словаре 
 			string_code = index; // P <- P+C
 		}
 		else {	// p+c нет в словаре
 			output(bf, string_code); // Выход P с потоком символов P
-			if (MAX_CODE > next_code) {	// free space in dictionary
-				// add string+character to dictionary
+			if (MAX_CODE > next_code) {	
 				AddToDictionary(character, string_code); // Написать P+C в словарь
 			}
 			string_code = character; // P <- C
@@ -145,16 +134,16 @@ void LZWDecode(BITFILE* bf, FILE* fp) {
 			d_stack[0] = character; // Первые хранилища символа PW в выводимой строке D_STACK
 			phrase_length = DecodeString(1, last_code); // Запуск PW с позиции 1 и хранить его в D_STACK, потому что место 0 записано в первый символ PW
 		}
-		else { // Если CW находится в словаре, храните CW непосредственно в вывод D_STACK
+		else { // Если CW находится в словаре, сохраним CW непосредственно в вывод D_STACK
 			phrase_length = DecodeString(0, new_code);
 		}
-		character = d_stack[phrase_length - 1]; // Первый символ текущего CW хранится по характеру, потому что D_STACK перевернулся, как первый персонаж следующего цикла PW
+		character = d_stack[phrase_length - 1]; // Первый символ текущего CW хранится по character, потому что D_STACK перевернулся, как первый персонаж следующего цикла PW
 		while (0 < phrase_length) {
 			phrase_length--;
 			fputc(d_stack[phrase_length], fp);// вывод строки, соответствующей текущему кодовому слову
 			file_length--;
 		}
-		if (MAX_CODE > next_code) {// p+c Напишите словарь
+		if (MAX_CODE > next_code) {// p+c Напишем словарь
 			AddToDictionary(character, last_code);
 		}
 		last_code = new_code;// pW <- cW
