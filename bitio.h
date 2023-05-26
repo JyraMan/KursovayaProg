@@ -1,9 +1,4 @@
 #pragma once
-/*
- * Declaration for bitwise IO
- *
- * vim: ts=4 sw=4 cindent
- */
 #ifndef __BITIO__
 #define __BITIO__
 
